@@ -1,0 +1,4 @@
+# ninja log v5
+0	126772	1710056251681128111	/home/luorun/workspace/MM-Interleaved/uni_interleaved/models/utils/ops/build/temp.linux-x86_64-cpython-310/home/luorun/workspace/MM-Interleaved/uni_interleaved/models/utils/ops/src/cuda/ms_deform_attn_cuda.o	acb96717957bfe58
+0	10999	1710056282765726858	/home/luorun/workspace/MM-Interleaved/uni_interleaved/models/utils/ops/build/temp.linux-x86_64-cpython-310/home/luorun/workspace/MM-Interleaved/uni_interleaved/models/utils/ops/src/cpu/ms_deform_attn_cpu.o	1df123afd30d17c5
+1	37293	1710056309062233378	/home/luorun/workspace/MM-Interleaved/uni_interleaved/models/utils/ops/build/temp.linux-x86_64-cpython-310/home/luorun/workspace/MM-Interleaved/uni_interleaved/models/utils/ops/src/vision.o	d0ed357f30744ab8

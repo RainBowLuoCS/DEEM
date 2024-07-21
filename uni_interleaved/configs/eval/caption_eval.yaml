@@ -1,0 +1,114 @@
+fp16: True
+per_device_eval_batch_size: 8
+dataloader_num_workers: &num_workers 8
+data_seed: &data_seed 0
+seed: 32
+
+## logging
+
+report_to: ['tensorboard']
+
+
+
+# MODEL
+model:
+  freeze_llm: True
+  freeze_vfm: True
+  freeze_dm: True
+  # spatial_shapes: [56,28,14]
+  llm_model_path: &tokenizer_path assets/lmsys/vicuna-7b-v1.5
+  # llm_model_path: &tokenizer_path assets/lmsys/vicuna-13b-v1.3
+  num_img_token: &img_len 77
+  cross_attention_frequency: 4
+
+  dataset_to_ignore_noimage_cond_loss: [laion_en, laion_coco]
+
+  visual_tokenizer_config:
+    sniffer_model_path: assets/laion/CLIP-convnext_base_w_320-laion_aesthetic-s13B-b82K
+    # sniffer_model_path: assets/laion/CLIP-convnext_large_d_320.laion2B-s29B-b131K-ft-soup
+    # sniffer_model_path: assets/openai/clip-vit-large-patch14
+    # sniffer_model_path: assets/openai/clip-vit-base-patch16
+
+    perceiver_config:
+      num_queries: 77
+      hidden_size: 768
+      encoder_hidden_size: 1024
+      cross_attention_frequency: 2
+      num_hidden_layers: 12
+      num_attention_heads: 12
+      qk_normalization: True
+
+  image_decoder_config: null
+      
+data:
+  val:
+    - name: coco_caption
+
+      data_root: datasets/coco
+      annt_root: datasets/coco
+
+      collator: ImageTextPairEvalCollator
+      num_img_token: *img_len
+      tokenizer_path: *tokenizer_path
+      collate_mode: generate_texts
+      img_first_prob: 1.0
+
+      transform: &val_transform
+        aug_type: 'dual_numpy'
+        resolution: &image_size 256
+        resolution2: &image_size_dec 512
+        center_crop: False
+        random_flip: False
+
+    - name: image2paragraph
+
+      data_root: datasets/vg
+      annt_root: datasets/image2parag
+
+      collator: ImageTextPairEvalCollator
+      num_img_token: *img_len
+      tokenizer_path: *tokenizer_path
+      collate_mode: generate_texts
+      generation_kwargs:
+        max_length: 90
+        min_length: 90
+        repetition_penalty: 1.2
+      img_first_prob: 1.1
+      instr_prompts: {
+            "image": [
+                "## ASSISTANT: ",
+                "## USER: please reconstruct the complete image from the description and the image to be filled in {caption} \n",
+                "You are a helpful assistant. \n\n"
+            ],
+            "text": [
+                "## ASSISTANT: The image depicts ",
+                "## USER: {image} Please describe the image in detail. \n",
+                "You are a helpful assistant. \n\n",
+            ],
+        }
+      transform: *val_transform
+
+    - name: nocaps
+
+      data_root: datasets/nocaps/val_imgs
+      annt_file: datasets/nocaps/nocaps_val_4500_captions.json
+
+      collator: ImageTextPairEvalCollator
+      num_img_token: *img_len
+      tokenizer_path: *tokenizer_path
+      collate_mode: generate_texts
+      img_first_prob: 1.1 
+
+      transform: *val_transform
+
+    - name: flickr30kcaption
+      data_root: datasets/flickr30k/flickr30k-images
+      annt_file: datasets/flickr30k/flickr30k_test1k.json
+
+      collator: ImageTextPairEvalCollator
+      num_img_token: *img_len
+      tokenizer_path: *tokenizer_path
+      collate_mode: generate_texts
+      img_first_prob: 1.1 
+
+      transform: *val_transform

@@ -1,0 +1,244 @@
+# Training Arguments
+fp16: True
+max_steps: 10000
+per_device_train_batch_size: &per_device_train_batch_size 2
+per_device_eval_batch_size: 2
+dataloader_num_workers: &num_workers 8
+data_seed: &data_seed 0
+seed: 32
+
+
+## optimizer & scheduler
+
+optim: adamw_torch
+learning_rate: 1.0e-5
+weight_decay: 0.05
+adam_beta1: 0.9
+adam_beta2: 0.999
+adam_epsilon: 1.0e-8
+lr_for_random_params_list: [1.0e-6, 5.0e-6, 5.0e-6, 5.0e-6, 1.0e-5, 5.0e-6, 5.0e-6]
+wd_for_random_params_list: [0.0, 0.0, 0.0, null, null, null, null]
+random_params_list: [mmdecoder, llama_cross_attn.gate, sampling_offsets, 
+                    llama_cross_attn, visual_tokenizer.encoder.unet,
+                    visual_tokenizer.sniffer.vision_model.visual,
+                    visual_tokenizer.sniffer.vision_model.encoder]
+
+lr_scheduler_type: "cosine"
+warmup_steps: 500
+
+## evaluation & saving
+
+evaluation_strategy: "steps"
+eval_steps: 40001
+save_strategy: "steps"
+save_steps: 2000
+save_total_limit: 5
+fp16_full_eval: false
+
+generate_mode: generate_both
+
+## logging
+
+report_to: ['tensorboard']
+logging_steps: 10
+disable_tqdm: False
+log_level: info
+
+## misc
+
+tf32: True
+ddp_find_unused_parameters: False
+
+## deepspeed
+
+deepspeed: './uni_interleaved/configs/deepspeed_zero1.json'
+
+
+# MODEL
+
+model:
+  freeze_llm: False
+  freeze_vfm: True
+  freeze_dm: True
+  mask_align: True
+  spatial_shapes: [56,28,14]
+  llm_model_path: &tokenizer_path assets/lmsys/vicuna-7b-v1.5
+  # llm_model_path: &tokenizer_path assets/lmsys/vicuna-13b-v1.3
+  num_img_token: &img_len 77
+  cross_attention_frequency: 4
+
+  dataset_to_ignore_noimage_cond_loss: [laion_en, laion_coco]
+
+  visual_tokenizer_config:
+    sniffer_model_path: assets/laion/CLIP-convnext_base_w_320-laion_aesthetic-s13B-b82K
+    # sniffer_model_path: assets/laion/CLIP-convnext_large_d_320.laion2B-s29B-b131K-ft-soup
+    # sniffer_model_path: assets/openai/clip-vit-large-patch14
+    # sniffer_model_path: assets/openai/clip-vit-base-patch16
+
+    perceiver_config:
+      num_queries: 77
+      hidden_size: 768
+      encoder_hidden_size: 1024
+      cross_attention_frequency: 2
+      num_hidden_layers: 12
+      num_attention_heads: 12
+      qk_normalization: True
+  image_decoder_config: null
+  # image_decoder_config:
+  #   pretrained_model_name_or_path: assets/stabilityai/stable-diffusion-2-1-base
+  #   sd_base_seed: 0
+  #   sd_use_random_seed: False
+  #   perceiver_config:
+  #     num_queries: 77
+  #     hidden_size: 1024
+  #     encoder_hidden_size: 4096
+  #     # encoder_hidden_size: 5120
+  #     cross_attention_frequency: 1
+  #     num_hidden_layers: 1
+  #     num_attention_heads: 16
+  #     hidden_dropout_prob: 0.
+  #     attention_probs_dropout_prob: 0.
+
+data:
+  train:
+    name: sft
+
+    datasets:
+
+    - name: mask_coco
+      data_root: datasets/coco/train2017
+      annt_file: datasets/coco/annotations/instances_train2017.json
+      tokenizer_path: *tokenizer_path
+
+      collator: ReferringMaskTrainCollator
+      num_img_token: *img_len
+
+      transform: &train_transform
+        aug_type: 'dual_numpy'
+        resolution: &image_size 448
+        resolution2: &image_size_dec 512
+        center_crop: False
+        random_flip: False
+
+    - name: mask_refcoco
+      data_root: datasets/coco/train2014
+      annt_file: datasets/refcoco/finetune_refcoco_train_with_mask.json
+      
+      tokenizer_path: *tokenizer_path
+
+      collator: ReferringMaskTrainCollator
+      num_img_token: *img_len
+
+      transform: *train_transform
+
+    - name: mask_refcocop
+      data_root: datasets/coco/train2014
+      annt_file: datasets/refcoco/finetune_refcoco+_train_with_mask.json
+      
+      tokenizer_path: *tokenizer_path
+      
+      collator: ReferringMaskTrainCollator
+      num_img_token: *img_len
+
+      transform: *train_transform
+
+    - name: mask_vg
+      data_root: datasets/vg/VG_100K
+      annt_file: datasets/vg/vg_train_with_mask.json
+      
+      tokenizer_path: *tokenizer_path
+      
+      collator: ReferringMaskTrainCollator
+      num_img_token: *img_len
+
+      transform: *train_transform
+
+    - name: mask_vcr
+      data_root: datasets/vcr/vcr1images
+      annt_file: datasets/vcr/train.jsonl
+      
+      tokenizer_path: *tokenizer_path
+      
+      collator: ReferringMaskTrainCollator
+      num_img_token: *img_len
+
+      transform: *train_transform
+
+    - name: mask_imagenet
+      data_root: datasets/part_data/partImagenet/train
+      annt_file: datasets/part_data/partImagenet/partImagenet_train_format.json
+      
+      tokenizer_path: *tokenizer_path
+      
+      collator: ReferringMaskTrainCollator
+      num_img_token: *img_len
+
+      transform: *train_transform
+
+
+    - name: mask_pascal
+      data_root: datasets/part_data/pascal_part/VOCdevkit/VOC2010/JPEGImages
+      annt_file: datasets/part_data/pascal_part/pascalpart_train.json
+      
+      tokenizer_path: *tokenizer_path
+      
+      collator: ReferringMaskTrainCollator
+      num_img_token: *img_len
+
+      transform: *train_transform
+
+    # - name: ospreypartlevel
+    #   data_root: datasets/coco/train2017
+    #   annt_file: datasets/Osprey-724K/osprey_part_level.json
+      
+    #   tokenizer_path: *tokenizer_path
+      
+    #   collator: ReferringMaskTrainCollator
+    #   num_img_token: *img_len
+
+    #   transform: *train_transform
+
+    # - name: ospreylvisposneg
+    #   data_root: datasets/coco/train2017
+    #   annt_file: datasets/Osprey-724K/osprey_lvis_positive_negative.json
+      
+    #   tokenizer_path: *tokenizer_path
+      
+    #   collator: ReferringMaskTrainCollator
+    #   num_img_token: *img_len
+
+    #   transform: *train_transform
+
+    # - name: ospreyconversations
+    #   data_root: datasets/coco/train2017
+    #   annt_file: datasets/Osprey-724K/osprey_conversation.json
+      
+    #   tokenizer_path: *tokenizer_path
+      
+    #   collator: ReferringMaskTrainCollator
+    #   num_img_token: *img_len
+
+    #   transform: *train_transform
+
+    # - name: ospreyshortform
+    #   data_root: datasets/coco/train2017
+    #   annt_file: datasets/Osprey-724K/osprey_short_form.json
+      
+    #   tokenizer_path: *tokenizer_path
+      
+    #   collator: ReferringMaskTrainCollator
+    #   num_img_token: *img_len
+
+    #   transform: *train_transform
+
+    # - name: ospreydetaileddescription
+    #   data_root: datasets/coco/train2017
+    #   annt_file: datasets/Osprey-724K/osprey_detailed_description.json
+      
+    #   tokenizer_path: *tokenizer_path
+      
+    #   collator: ReferringMaskTrainCollator
+    #   num_img_token: *img_len
+
+    #   transform: *train_transform
+

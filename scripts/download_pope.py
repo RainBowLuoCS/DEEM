@@ -1,0 +1,1 @@
+# refer to https://github.com/RUCAIBox/POPE/tree/main/output/coco for downloading pope

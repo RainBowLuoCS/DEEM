@@ -1,0 +1,119 @@
+fp16: True
+per_device_eval_batch_size: 10
+dataloader_num_workers: &num_workers 8
+data_seed: &data_seed 0
+seed: 32
+
+## logging
+
+report_to: ['tensorboard']
+
+
+# MODEL
+
+model:
+  freeze_llm: True
+  freeze_vfm: True
+  freeze_dm: True
+  spatial_shapes: [56,28,14]
+  llm_model_path: &tokenizer_path assets/lmsys/vicuna-7b-v1.5
+  # llm_model_path: &tokenizer_path assets/lmsys/vicuna-13b-v1.3
+  num_img_token: &img_len 77
+  cross_attention_frequency: 4
+
+  dataset_to_ignore_noimage_cond_loss: [laion_en, laion_coco]
+
+  visual_tokenizer_config:
+    sniffer_model_path: assets/laion/CLIP-convnext_base_w_320-laion_aesthetic-s13B-b82K
+    # sniffer_model_path: assets/laion/CLIP-convnext_large_d_320.laion2B-s29B-b131K-ft-soup
+    # sniffer_model_path: assets/openai/clip-vit-large-patch14
+    # sniffer_model_path: assets/openai/clip-vit-base-patch16
+
+    perceiver_config:
+      num_queries: 77
+      hidden_size: 768
+      encoder_hidden_size: 1024
+      cross_attention_frequency: 2
+      num_hidden_layers: 12
+      num_attention_heads: 12
+      qk_normalization: True
+
+  image_decoder_config: null
+
+data:
+  val:
+    - name: visdial
+
+      data_root: datasets/visdial
+      annt_root: datasets/visdial
+
+      collator: ScoreEvalCollator
+      collate_mode: generate_scores
+      num_img_token: *img_len
+      tokenizer_path: *tokenizer_path
+
+      transform: &val_transform
+        aug_type: 'dual_numpy'
+        resolution: &image_size 448
+        resolution2: &image_size_dec 512
+        center_crop: False
+        random_flip: False
+
+    - name: vqav2
+      data_root: datasets/coco
+      annt_root: datasets/vqav2
+
+      collator: VQAEvalCollator
+      num_img_token: *img_len
+      tokenizer_path: *tokenizer_path
+      collate_mode: 'generate_vqa'
+
+      transform: *val_transform
+
+    - name: textvqa
+      data_root: datasets/textvqa/train_images
+      annt_root: datasets/textvqa
+      tokenizer_path: *tokenizer_path
+      collate_mode: 'generate_vqa'
+
+      collator: VQAEvalCollator
+      num_img_token: *img_len
+
+      transform: *val_transform
+
+    - name: okvqa
+      data_root: datasets/coco
+      annt_root: datasets/okvqa
+      tokenizer_path: *tokenizer_path
+      collate_mode: 'generate_vqa'
+
+      collator: VQAEvalCollator
+      num_img_token: *img_len
+      transform: *val_transform
+
+    - name: vizwiz
+      data_root: datasets/vizwiz
+      annt_root: datasets/vizwiz
+
+      collator: VQAEvalCollator
+      instr_prompts: [
+            "## ASSISTANT: The answer is",
+            "## USER: Based on the image, please answer the question. {image}{question} When the provided information is insufficient, respond with 'Unanswerable'. Please provide an accurate answer within one word.\n",
+            "You are a helpful assistant.\n\n",
+        ]
+      num_img_token: *img_len
+      tokenizer_path: *tokenizer_path
+      collate_mode: 'generate_vqa'
+
+      transform: *val_transform
+
+    - name: gqa
+      data_root: datasets/gqa/images
+      annt_root: datasets/gqa
+
+      collator: VQAEvalCollator
+      num_img_token: *img_len
+      tokenizer_path: *tokenizer_path
+      collate_mode: 'generate_vqa'
+
+      transform: *val_transform
