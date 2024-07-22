@@ -279,17 +279,17 @@ python ./uni_interleaved/utils/gqa_eval.py
 We provide some examples in this section. More examples can be found in our paper
 
 <div align=center>
-<img width="98%" src="document/case1.png"/>
+<img width="90%" src="document/case1.png"/>
 </div>
 
 <div align='center' >
 <details>
 <summary> Click to expand more examples</summary>
 <p align="center">
-    <img src="document/case2.png" width="100%" height="100%">
-    <img src="document/case3.png" width="100%" height="100%">
-    <img src="document/case4.png" width="100%" height="100%">
-    <img src="document/case5.png" width="100%" height="100%">
+    <img src="document/case2.png" width="60%" height="60%">
+    <img src="document/case3.png" width="60%" height="60%">
+    <img src="document/case4.png" width="60%" height="60%">
+    <img src="document/case5.png" width="60%" height="60%">
 </details>
 </div>
 
