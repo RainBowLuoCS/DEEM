@@ -74,8 +74,6 @@ We provide all our fully finetuned models on Stage 2 and 3 data for DEEM:
 | ------------- | -------------- | -------------- | --------------------- | -------- |
 | DEEM-VQA 7B   | Vicuna-7B-v1.5 | ConvNext-B     | LLaVA-665k+VQA+COCO   | [ckpt]() |
 | DEEM-MASK 7B  | Vicuna-7B-v1.5 | ConvNext-B     | ReferCOCO+VG+PartData | [ckpt]() |
-| DEEM-IMAGE 7B | Vicuna-7B-v1.5 | ConvNext-B     | COCO                  | [ckpt]() |
-
 
 ## 🔮 Preparation
 
