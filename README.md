@@ -4,6 +4,18 @@
 
 # DEEM: Diffusion models serve as the eyes of large language models for image perception
 
+<br>
+<a href="https://scholar.google.com/citations?user=phg8yxoAAAAJ&hl=zh-CN&oi=ao">Run Luo</a><sup><span>1,2</span></sup>, 
+<a href="https://scholar.google.com/citations?user=juR8ZS4AAAAJ&hl=zh-CN">Yunshui Li</a><sup><span>1,2</span></sup>,
+<a href="https://github.com/October2001">Longze Chen</a><sup><span>1,2</span></sup>
+</br>
+
+<br> 
+
+<sup>1</sup> SIAT,  <sup>2</sup> UCAS
+
+<br>
+
 ![Multi-Modal](https://img.shields.io/badge/Task-Multi--Modal-red) <a href='https://arxiv.org/pdf/2405.15232'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a><a href='https://huggingface.co/collections/yifanzhang114/slime-665bcb2d0d71762b86fdbd2d'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue'></a><a href='https://huggingface.co/datasets/yifanzhang114/SMR'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Data-green'></a>
 
 <p align="center">
