@@ -10,8 +10,9 @@
 <a href="https://scholar.google.com/citations?user=juR8ZS4AAAAJ&hl=zh-CN">Yunshui Li</a><sup><span>1,2*</span></sup>,
 <a href="https://github.com/October2001">Longze Chen</a><sup><span>1,2*</span></sup>,
 <a>Wanwei He</a><sup><span>1,2</span></sup>,
-<a>Ziqiang Liu<sup><span>5</span></sup>,
-<a>Lei Zhang<sup><span>5</span></sup>
+<a>Ting-En Lin</a><sup><span>5</span></sup>,
+<a>Ziqiang Liu<sup><span>1,2</span></sup>,
+<a>Lei Zhang<sup><span>1,2</span></sup>
 <br>
 <a>Zikai Song<sup><span>6</span></sup>,
 <a>Xiaobo Xia<sup><span>4</span></sup>,
