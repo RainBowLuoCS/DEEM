@@ -11,7 +11,7 @@
 </p>
 
 <font size=5><div align='center' >  [[📖 arXiv Paper](https://arxiv.org/pdf/2405.15232)] [[📊 Dataset](https://arxiv.org/pdf/2405.15232)] [[🏆 Models](https://arxiv.org/pdf/2405.15232)]  </div></font>
-
+DEEM is an exploration of using diffusion models as the eyes of multi-modal large language models, with the goal of eliminating potential biases in different visual encoders from a vision-centric perspective. We hope that DEEM can bring some thinking to the multimodal community, whether the unbiased diffusion model can replace the traditional visual encoder and become the second unified multimodal structure besides self-regression.
 
 ## 🔥 Update
 
