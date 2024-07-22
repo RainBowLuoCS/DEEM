@@ -29,7 +29,7 @@ DEEM is an exploration of using diffusion models as the eyes of multi-modal larg
 - [Citation](#citation)
 
 
-## 🔮 Setup
+## 📷 Setup
 
 Please follow the instructions below to install the required packages.
 
