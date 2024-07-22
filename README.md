@@ -11,7 +11,7 @@
 </p>
 
 <font size=5><div align='center' >  [[📖 arXiv Paper](https://arxiv.org/pdf/2405.15232)] [[📊 Dataset](https://arxiv.org/pdf/2405.15232)] [[🏆 Models](https://arxiv.org/pdf/2405.15232)]  </div></font>
-
+DEEM is an exploration of using diffusion models as the eyes of multi-modal large language models, with the goal of eliminating potential biases in different visual encoders from a vision-centric perspective. We hope that DEEM can bring some thinking to the multimodal community, whether the unbiased diffusion model can replace the traditional visual encoder and become the second unified multimodal structure besides self-regression.
 
 ## 🔥 Update
 
@@ -74,8 +74,6 @@ We provide all our fully finetuned models on Stage 2 and 3 data for DEEM:
 | ------------- | -------------- | -------------- | --------------------- | -------- |
 | DEEM-VQA 7B   | Vicuna-7B-v1.5 | ConvNext-B     | LLaVA-665k+VQA+COCO   | [ckpt]() |
 | DEEM-MASK 7B  | Vicuna-7B-v1.5 | ConvNext-B     | ReferCOCO+VG+PartData | [ckpt]() |
-| DEEM-IMAGE 7B | Vicuna-7B-v1.5 | ConvNext-B     | COCO                  | [ckpt]() |
-
 
 ## 🔮 Preparation
 
@@ -227,13 +225,12 @@ Note that after downloading the mmc4 dataset, you need to use the following conv
 python ./scripts/convert_mmc4_for_pretrain.py
 ```
 
-You can use the robustvqa file we provide or regenerate it yourself using the script
+You can use the robustvqa file we provide in datasets or regenerate it yourself using the script
 
 ```bash
 python ./scripts/convert_imagenet_for_robustvqa_test.py
 ```
 
-You can use the robustvqa file we provide or regenerate it yourself using the script
 
 ## 📈 Train
 
