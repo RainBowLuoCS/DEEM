@@ -15,8 +15,8 @@ DEEM is an exploration of using diffusion models as the eyes of multi-modal larg
 
 ## 🔥 Update
 
-- [07/21]🔥DEEM is coming! We release the [code](https://github.com/yfzhang114/SliME), [models](https://huggingface.co/collections/yifanzhang114/slime-665bcb2d0d71762b86fdbd2d), and [data](https://huggingface.co/datasets/yifanzhang114/SMR) for DEEM!
-- [07/05]🔥DEEM is coming! We release the [paper](https://arxiv.org/abs/2406.08487) for DEEM!
+- [07/21]🔥DEEM is coming! We release the [code](https://github.com/RainBowLuoCS/DEEM), [models](https://huggingface.co/collections/yifanzhang114/slime-665bcb2d0d71762b86fdbd2d), and [data](https://huggingface.co/datasets/yifanzhang114/SMR) for DEEM!
+- [07/05]🔥DEEM is coming! We release the [paper](https://arxiv.org/abs/2405.15232) for DEEM!
 
 ## 👀 Contents
 
