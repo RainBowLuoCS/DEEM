@@ -227,13 +227,12 @@ Note that after downloading the mmc4 dataset, you need to use the following conv
 python ./scripts/convert_mmc4_for_pretrain.py
 ```
 
-You can use the robustvqa file we provide or regenerate it yourself using the script
+You can use the robustvqa file we provide in datasets or regenerate it yourself using the script
 
 ```bash
 python ./scripts/convert_imagenet_for_robustvqa_test.py
 ```
 
-You can use the robustvqa file we provide or regenerate it yourself using the script
 
 ## 📈 Train
 
