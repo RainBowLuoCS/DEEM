@@ -4,30 +4,32 @@
 
 # DEEM: Diffusion models serve as the eyes of large language models for image perception
 
+<div align="center">
 <br>
-<a href="https://scholar.google.com/citations?user=phg8yxoAAAAJ&hl=zh-CN&oi=ao">Run Luo</a><sup><span>1,2</span></sup>, 
-<a href="https://scholar.google.com/citations?user=juR8ZS4AAAAJ&hl=zh-CN">Yunshui Li</a><sup><span>1,2</span></sup>,
-<a href="https://github.com/October2001">Longze Chen</a><sup><span>1,2</span></sup>
+<a href="https://scholar.google.com/citations?user=phg8yxoAAAAJ&hl=zh-CN&oi=ao">Run Luo</a><sup><span>1</span></sup>, 
+<a href="https://scholar.google.com/citations?user=juR8ZS4AAAAJ&hl=zh-CN">Yunshui Li</a><sup><span>1</span></sup>,
+<a href="https://github.com/October2001">Longze Chen</a><sup><span>1</span></sup>
 </br>
 
 <br> 
 
-<sup>1</sup> SIAT,  <sup>2</sup> UCAS
+<sup>1</sup> Shenzhen Institute of Advanced Technology, Chinese Academy of Sciences
 
 <br>
-
+<div>
+    
 ![Multi-Modal](https://img.shields.io/badge/Task-Multi--Modal-red) <a href='https://arxiv.org/pdf/2405.15232'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a><a href='https://huggingface.co/collections/yifanzhang114/slime-665bcb2d0d71762b86fdbd2d'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue'></a><a href='https://huggingface.co/datasets/yifanzhang114/SMR'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Data-green'></a>
 
 <p align="center">
     <img src="document/overall.png" width="100%" height="100%">
 </p>
 
-<font size=5><div align='center' >  [[📖 arXiv Paper](https://arxiv.org/pdf/2405.15232)] [[📊 Dataset](https://arxiv.org/pdf/2405.15232)] [[🏆 Models](https://arxiv.org/pdf/2405.15232)]  </div></font>
+<font size=5><div align='center' >  [[📖 arXiv Paper](https://arxiv.org/pdf/2405.15232)] [[📊 Dataset](https://github.com/RainBowLuoCS/DEEM)] [[🏆 Models](https://github.com/RainBowLuoCS/DEEM)]  </div></font>
 DEEM is an exploration of using diffusion models as the eyes of multi-modal large language models, with the goal of eliminating potential biases in different visual encoders from a vision-centric perspective. We hope that DEEM can bring some thinking to the multimodal community, whether the unbiased diffusion model can replace the traditional visual encoder and become the second unified multimodal structure besides self-regression.
 
 ## 🔥 Update
 
-- [07/21]🔥DEEM is coming! We release the [code](https://github.com/RainBowLuoCS/DEEM), [models](https://huggingface.co/collections/yifanzhang114/slime-665bcb2d0d71762b86fdbd2d), and [data](https://huggingface.co/datasets/yifanzhang114/SMR) for DEEM!
+- [07/21]🔥DEEM is coming! We release the [code](https://github.com/RainBowLuoCS/DEEM), [models](https://github.com/RainBowLuoCS/DEEM), and [data](https://github.com/RainBowLuoCS/DEEM) for DEEM!
 - [07/05]🔥DEEM is coming! We release the [paper](https://arxiv.org/abs/2405.15232) for DEEM!
 
 ## 👀 Contents
