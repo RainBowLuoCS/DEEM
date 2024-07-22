@@ -6,19 +6,32 @@
 
 <div align="center">
 <br>
-<a href="https://scholar.google.com/citations?user=phg8yxoAAAAJ&hl=zh-CN&oi=ao">Run Luo</a><sup><span>1</span></sup>, 
-<a href="https://scholar.google.com/citations?user=juR8ZS4AAAAJ&hl=zh-CN">Yunshui Li</a><sup><span>1</span></sup>,
-<a href="https://github.com/October2001">Longze Chen</a><sup><span>1</span></sup>
-</br>
-
-<br> 
-
-<sup>1</sup> Shenzhen Institute of Advanced Technology, Chinese Academy of Sciences
-
+<a href="https://scholar.google.com/citations?user=phg8yxoAAAAJ&hl=zh-CN&oi=ao">Run Luo</a><sup><span>1,2*</span></sup>, 
+<a href="https://scholar.google.com/citations?user=juR8ZS4AAAAJ&hl=zh-CN">Yunshui Li</a><sup><span>1,2*</span></sup>,
+<a href="https://github.com/October2001">Longze Chen</a><sup><span>1,2*</span></sup>,
+<a>Wanwei He</a><sup><span>1,2</span></sup>,
+<a>Ziqiang Liu<sup><span>5</span></sup>,
+<a>Lei Zhang<sup><span>5</span></sup>
 <br>
-</div>
+<a>Zikai Song<sup><span>6</span></sup>,
+<a>Xiaobo Xia<sup><span>4</span></sup>,
+<a>Tongliang Liu<sup><span>4</span></sup>,
+<a>Min Yang<sup><span>1,2🌟</span></sup>,
+<a>Binyuan Hui<sup><span>3🌟</span></sup>
+<br>
+    
+\* Equal contribution 🌟 Corresponding author
+
+<sup>1</sup> Shenzhen Institute of Advanced Technology, Chinese Academy of Sciences<br>
+<sup>2</sup> University of Chinese Academy of Sciences<br>
+<sup>3</sup> Alibaba Group
+<sup>4</sup> The University of Sydney 
+<sup>5</sup> Tsinghua University
+<sup>6</sup> HUST<br>
     
 ![Multi-Modal](https://img.shields.io/badge/Task-Multi--Modal-red) <a href='https://arxiv.org/pdf/2405.15232'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a> <a href='https://huggingface.co/collections/yifanzhang114/slime-665bcb2d0d71762b86fdbd2d'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue'></a> <a href='https://huggingface.co/datasets/yifanzhang114/SMR'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Data-green'></a>
+
+</div>
 
 <p align="center">
     <img src="document/overall.png" width="100%" height="100%">
