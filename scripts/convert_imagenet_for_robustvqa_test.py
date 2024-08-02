@@ -9,31 +9,33 @@ import torch.nn.functional as F
 import torch.distributed as dist
 from transformers import AutoTokenizer, CLIPModel, AutoProcessor
 from PIL import Image
+import os
+os.environ['CUDA_VISIBLE_DEVICES']='3'
 
 all_data={}
 imagenet_d=[]
-# imagenet_d
-csv_reader = csv.reader(open("datasets/robustvqa/imagenet-d/questions/background.csv"), delimiter='\t')
+# # imagenet_d
+# csv_reader = csv.reader(open("datasets/robustvqa/imagenet-d/questions/background.csv"), delimiter='\t')
 
-for idx,row in enumerate(csv_reader):
-    if idx==0:
-        continue
-    imagenet_d.append({'file_name':'datasets/robustvqa/imagenet-d/'+row[0],'gt_caption':row[1],'error_caption':row[2]})
+# for idx,row in enumerate(csv_reader):
+#     if idx==0:
+#         continue
+#     imagenet_d.append({'file_name':'datasets/robustvqa/imagenet-d/'+row[0],'gt_caption':row[1],'error_caption':row[2]})
 
-csv_reader = csv.reader(open("datasets/robustvqa/imagenet-d/questions/material.csv"), delimiter='\t')
-for idx,row in enumerate(csv_reader):
-    if idx==0:
-        continue
-    imagenet_d.append({'file_name':'datasets/robustvqa/imagenet-d/'+row[0],'gt_caption':row[1],'error_caption':row[2]})
+# csv_reader = csv.reader(open("datasets/robustvqa/imagenet-d/questions/material.csv"), delimiter='\t')
+# for idx,row in enumerate(csv_reader):
+#     if idx==0:
+#         continue
+#     imagenet_d.append({'file_name':'datasets/robustvqa/imagenet-d/'+row[0],'gt_caption':row[1],'error_caption':row[2]})
 
-csv_reader = csv.reader(open("datasets/robustvqa/imagenet-d/questions/texture.csv"), delimiter='\t')
+# csv_reader = csv.reader(open("datasets/robustvqa/imagenet-d/questions/texture.csv"), delimiter='\t')
 
-for idx,row in enumerate(csv_reader):
-    if idx==0:
-        continue
-    imagenet_d.append({'file_name':'datasets/robustvqa/imagenet-d/'+row[0],'gt_caption':row[1],'error_caption':row[2]})
+# for idx,row in enumerate(csv_reader):
+#     if idx==0:
+#         continue
+#     imagenet_d.append({'file_name':'datasets/robustvqa/imagenet-d/'+row[0],'gt_caption':row[1],'error_caption':row[2]})
      
-all_data['imagenet_d']=imagenet_d
+# all_data['imagenet_d']=imagenet_d
 
 class_index_mapping = json.load(open("datasets/robustvqa/imagenet_class_index.json",'r'))
 new_class_index_mapping = {}
@@ -72,7 +74,7 @@ CLIP_MEAN, CLIP_STD = [0.48145466, 0.4578275, 0.40821073], [
 mean, std = torch.tensor(CLIP_MEAN).to('cuda'), torch.tensor(CLIP_STD).to('cuda')
 mean, std = rearrange(mean, "c -> 1 c 1 1"), rearrange(std, "c -> 1 c 1 1")
 
-model_path="./assets/openai/clip-vit-large-patch14-336"
+model_path="/mnt/workspace/lr/datasets/checkpoints/openai/clip-vit-large-patch14-336/"
 model = CLIPModel.from_pretrained(model_path)
 model.eval()
 model=model.to('cuda')
@@ -103,14 +105,14 @@ images+=images_r
 labels+=labels_r
 types+=types_r
 
-# imagenet_s
-images_s=sorted(glob.glob(os.path.join("datasets/robustvqa/imagenet-s", '*/*.png')))
-labels_s=[int(new_class_index_mapping[i.split('/')[-2]][0]) for i in images_s]
-types_s=['imagenet-s']*len(labels_s)
+# # imagenet_s
+# images_s=sorted(glob.glob(os.path.join("datasets/robustvqa/imagenet-s", '*/*.png')))
+# labels_s=[int(new_class_index_mapping[i.split('/')[-2]][0]) for i in images_s]
+# types_s=['imagenet-s']*len(labels_s)
 
-images+=images_s
-labels+=labels_s
-types+=types_s
+# images+=images_s
+# labels+=labels_s
+# types+=types_s
 
 # imagenet_v2
 images_v2=sorted(glob.glob(os.path.join("datasets/robustvqa/imagenetv2", '*/*.jpeg')))
@@ -151,41 +153,24 @@ with torch.no_grad():
         _, pred = output.topk(2, 1, True, True)
         pred=pred.detach().cpu()
         flag=(pred[:,0].view(-1)==labels.view(-1))
-        res=pred[:,1]*flag+pred[:,0]*(~flag)
+        res=pred[~flag,0]
         # res=pred[:,0]
         # print((pred[:,0].view(-1)==labels.view(-1)).sum()/32*100)
-        for itype,label,ss,path in zip(types,labels,res,paths):
+        for itype,label,ss,path in zip(types,labels[~flag],res,paths):
             item={"file_name":path,
                   'gt_caption':class_index_mapping[str(label.item())][1],
                   'error_caption':class_index_mapping[str(ss.item())][1]}
             # print(item)
             if itype=="imagenet-a":
                 imagenet_a.append(item)
-            elif itype=="imagenet-s":
-                imagenet_s.append(item)
             elif itype=="imagenet-r":
                 imagenet_r.append(item)
             elif itype=="imagenetv2":
                 imagenet_v2.append(item)
 
-all_data['imagenet_s']=imagenet_s
 all_data['imagenet_a']=imagenet_a
 all_data['imagenet_r']=imagenet_r
 all_data['imagenet_v2']=imagenet_v2
 
 with open("datasets/robustvqa/robustvqa_test.json", 'w') as f:
     json.dump(all_data,f)
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
