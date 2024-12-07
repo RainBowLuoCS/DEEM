@@ -44,7 +44,7 @@ DEEM is an exploration of using diffusion models as the eyes of multi-modal larg
 ## 🔥 Update
 
 - [07/21]🔥DEEM is coming! We release the [code](https://github.com/RainBowLuoCS/DEEM), [models](https://github.com/RainBowLuoCS/DEEM), and [data](https://github.com/RainBowLuoCS/DEEM) for DEEM!
-- [24/05]🔥DEEM is coming! We release the [paper](https://arxiv.org/abs/2405.15232) for DEEM!
+- [05/24]🔥DEEM is coming! We release the [paper](https://arxiv.org/abs/2405.15232) for DEEM!
 
 ## 👀 Contents
 
