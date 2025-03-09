@@ -43,8 +43,10 @@ DEEM is an exploration of using diffusion models as the eyes of multi-modal larg
 
 ## 🔥 Update
 
-- [07/21]🔥DEEM is coming! We release the [code](https://github.com/RainBowLuoCS/DEEM), [models](https://github.com/RainBowLuoCS/DEEM), and [data](https://github.com/RainBowLuoCS/DEEM) for DEEM!
-- [05/24]🔥DEEM is coming! We release the [paper](https://arxiv.org/abs/2405.15232) for DEEM!
+- [02/10/2025]🔥DEEM is selected as Spotlight
+- [01/22/2025]🔥Two paper are accepted by ICLR 2025 (online diffusion feedback method for DEEM and offline diffusion feedback method for DIVA (Diffusion Feedback Helps CLIP See Better))
+- [07/21/2024]🔥DEEM is coming! We release the [code](https://github.com/RainBowLuoCS/DEEM), [models](https://github.com/RainBowLuoCS/DEEM), and [data](https://github.com/RainBowLuoCS/DEEM) for DEEM!
+- [05/24/2024]🔥DEEM is coming! We release the [paper](https://arxiv.org/abs/2405.15232) for DEEM!
 
 ## 👀 Contents
 
